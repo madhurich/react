@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body ng-app="routerApp">
+	<ul>
+		<li><a ui-sref="home">Home</a></li>
+		<li><a ui-sref="about({harry: 'main character', wand: 'gryffindor'})">About</a></li>
+		<li><a ui-sref="news">News</a></li>
+		<li><a ui-sref="books">Books</a></li>
+		<li><a ui-sref="other({objHere: 'obj1 value'})">Other</a></li>
+	</ul>
+	
+	<div ui-view style="border: 1px solid red;"></div>
+	<div ui-view="hello" style="border: 1px solid red;"></div>
+	<div ui-view="are" style="border: 1px solid red;"></div>
+	<div ui-view="test" style="border: 1px dashed black ;"></div>
+	
+
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+	<script src="http://code.angularjs.org/1.2.13/angular.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+
+	<script src="app.js"></script>
+	
+</body>
+</html>

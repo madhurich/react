@@ -1,0 +1,48 @@
+https://github.com/angular-ui/ui-router/wiki
+https://ui-router.github.io/docs/0.3.1/#/api/ui.router.state.$stateProvider
+
+SPECIFYING PARAMETERS
+> url: '/other/:id/:details'
+
+> url: '/other/{id}/{details}'
+
+> url: '/other?id&details'
+
+in the view 
+	<a ui-sref=other({id: 32, details: 'details here'})>get details</a>
+
+REGISTERING $stateParams to a single state??????
+USING Params in the state  itself without using that in the url??????
+-------------
+'':{
+	
+}//targets unnamed view in the state's parent state	
+
+'killer': {
+	
+}//targets killer view in the state's parent state
+
+'@':{
+	
+}//targets unnamed view in the root state index.html
+
+'@about': {
+	
+}//targets unnamed view in about state
+
+'@about.dad':{
+	
+}//targets unnamed view in about.dad state
+
+
+'hello@':{
+	
+}//targets the view named hello in index.html
+
+'hello@about.dad'{
+	
+}//targets hello view in about.dad
+
+'hello@about'{
+	
+}//targets hello view in about state

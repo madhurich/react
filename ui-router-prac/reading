@@ -1,0 +1,8 @@
+1. UI-routing
+	
+	-- Nesting views
+	-- URL routing
+	-- communicating between views
+	-- Multiple named views
+
+	bower install angular-ui-router angular bootstrap

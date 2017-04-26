@@ -1,0 +1,10 @@
+<h1>Books view</h1>
+
+<div ng-repeat="x in books">
+	<p><strong>ID: </strong>{{x.id}}</p>
+	<p><strong>Author: </strong>{{x.author}}</p>
+
+	<p><a ui-sref="bookDetail({ bookId: {{x.id}}, bookAuthor: '{{x.author}}' })">See Detail book</a></p>
+
+	<!-- <p><a ng-href="#/books/{{x.id}}/{{x.author}}">See Detail book</a></p> -->
+</div>

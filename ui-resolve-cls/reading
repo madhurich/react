@@ -1,0 +1,182 @@
+1. Nesting of states
+		-->dot notation
+		-->ui.router.stateHelper
+
+		bower install angular-ui-router.stateHelper
+
+		var app = angular.module('myApp', ['ui.router', 'ui.router.stateHelper']);
+
+app.config(function(stateHelperProvider){
+
+	stateHelperProvider
+		.state({
+			name: 'root',
+			templateUrl: 'views/root.html',
+			children: [{
+				name: 'home',
+				template: '<h1>HomePage</h1><div ui-view></div>',
+				children: [{
+					name: 'mrud',
+					template: '<h3>Mrud</h3>'
+				}, {
+					name: 'mad',
+					template: '<h3>Mad</h3>'
+				}]
+			}, {
+				name: 'about',
+				template: '<h1>About</h1>'
+			}]
+		}, {keepOriginalNames: true});
+});
+
+----
+var home = {
+		name: 'home',
+		template: '<h1>Home</h1>'
+	};
+
+	var myHome = {
+		name: 'myHome',
+		template: '<h1>my home</h1>',
+		parent: home
+	};
+
+	$stateProvider
+		.state(home)
+		.state(myHome);
+------
+$stateProvider
+		.state('home', {
+			template: '<h1>home</h1>',
+			url: '/home'
+		})
+		.state('myHome', {
+			parent: 'home',
+			url: '/myHome',
+			template: ''
+		});
+
+
+2. what do child states inherit from parent states	
+		data properties
+		resolved dependencies
+
+		data properties
+
+		------
+		var app = angular.module('myApp', ['ui.router']);
+
+app.config(['$stateProvider', '$urlRouterProvider',
+	function($stateProvider, $urlRouterProvider) {
+	
+	$stateProvider
+		.state('home', {
+			templateUrl: 'views/home.html',
+			url: '/home',
+			data: {
+				name: 'killer',
+				age: 44
+			}
+		})
+		.state('home.myHome', {
+			templateUrl: 'views/home.myHome.html',
+			url: '/myHome',
+			data: {
+				name: 'modified'
+			},
+			
+		})
+		.state('home.myFriend', {
+			templateUrl: 'views/home.myFriend.html',
+			url: '/home',
+
+		})
+		.state('about', {
+			templateUrl: 'views/about.html',
+			url: '/about'
+		});
+}]);
+
+app.run(function($rootScope){
+	$rootScope.$on('$stateChangeStart', function(event, toState){
+		console.log(toState.data.name, toState.data.age);
+	});
+});
+
+-----
+$state.go();
+
+to activate a state
+<a ui-sref="home">home</a>
+directly typing it in the url
+$state.go();
+
+---------------
+inheriting via resolve
+
+var app = angular.module('myApp', ['ui.router']);
+
+app.config(['$stateProvider', '$urlRouterProvider',
+	function($stateProvider, $urlRouterProvider) {
+	
+	$stateProvider
+		.state('home', {
+			templateUrl: 'views/home.html',
+			url: '/home',
+			controller: function(homeFunc, $scope){
+				//alert('controller function');
+				//$scope.name = homeFunc.name;
+				$scope.data = homeFunc;
+
+
+			},
+			resolve: {
+				homeFunc: ['$http', function($http){
+					return $http.get('http://rest.learncode.academy/api/johnbob/friends/').then(function(res){
+						return res.data;
+					});
+				}]
+			},
+		
+		
+		
+		})
+		.state('home.myHome', {
+			templateUrl: 'views/home.myHome.html',
+			url: '/myHome',
+			resolve: {
+				myHomeFunc: function(){
+					return {name: 'myHome name'};
+				}
+			},
+			controller: function(homeFunc, $scope){
+				console.log(homeFunc);
+
+			},
+			
+		})
+		.state('home.myFriend', {
+			templateUrl: 'views/home.myFriend.html',
+			url: '/home',
+			resolve: {
+				myFriendFunc: function(){
+					return {name: 'myFriend name'};
+				}
+			},
+
+		})
+		.state('about', {
+			templateUrl: 'views/about.html',
+			url: '/about',
+			params: {
+				homeData: null
+			},
+			controller: function($stateParams, $scope){
+				console.log($stateParams.homeData);
+				$scope.data = $stateParams.homeData;
+
+			}
+		});
+}]);
+
+	

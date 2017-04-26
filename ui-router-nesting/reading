@@ -1,0 +1,27 @@
+bower install angular-ui-router.stateHelper
+npm install angular-ui-router.statehelper
+
+POINTS TO REMEMBER
+> By default, all state names are converted to use ui-router's dot notation (e.g. parentStateName.childStateName) in app.js file where we declare our states.
+
+> This can be disabled by calling .state() with options options.keepOriginalNames = true.
+
+when this option is not specified, when we try to go tot state "home" by clicking the link
+<a ui-sref="home">Home</a> it will check for ".home" transition to state "root.home" in app.js,
+but we din't specify .home inside of our ui-sref attribute so it throuws an error.
+
+So inorder to avoid that prefixed "dot notation" we use this keepOriginalNames as "true"
+so it directly checks fro state 'home' within state 'root'
+
+To see the effect set that value to be "false" and prefix a 'dot' before 'home' in ui-sref
+attribute it will work.
+
+REFER 
+1. https://github.com/marklagendijk/ui-router.stateHelper 
+
+Nesting of states
+1. "dot" notation
+2. stateHelperProvider
+3. String based states
+4. Object based states
+

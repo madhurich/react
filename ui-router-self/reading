@@ -1,0 +1,43 @@
+1. URL routing
+2. Multiple named views
+3. Nested States and nested views
+
+POINTS TO REMEMBER 
+>For example, you can't have two different states named "edit" even if they have different parents.
+
+>When you are using <a ui-sref=".myHome">my home</a> inside of home.html then it goes to the url "/home/myHome" and the corresponding template will be loaded.
+	--here we are not writing the entire statename i.e "home.myHome" inside of the ui-sref="" value, we can do this when we don't have any parameters needed to be passed to that state.
+	BUT BUT if we want to pass any parameters to that state 'home.myHome' then we need to write the state name completely, as 
+	<a ui-sref="home.myHome({param1: 'value'})">Go to home.myHome state</a>
+	we can't ommit the "home" in "home.myHome".
+
+REFER
+http://stackoverflow.com/questions/21105528/difference-between-state-transitionto-and-state-go-in-angularjs
+
+http://stackoverflow.com/questions/23081397/ui-router-stateparams-vs-state-params
+
+******IMPORTANT*******
+REFER http://stackoverflow.com/questions/2005079/absolute-vs-relative-urls
+> It's always better to use relative urls than absolute urls in general
+look into the above link to study in detail
+
+
+RELATIVE urls VS ABSOLUTE urls
+
+REFER https://github.com/angular-ui/ui-router/wiki/URL-Routing
+
+> By default all the child state urls are prepended with the parent state's urls
+ex: .state('parent', {
+	url: '/parent',
+	template: '<h1>Parent</h1>'
+})
+.state('parent.child', {
+	url: '/child', //here this url is /parent/child when you get to this view
+	template: '<h1>Child</h1>'
+})
+
+So if you specify nothing in the child state's urls, it will be prepended with parent's url which is said to be RELATIVE URL.
+If you don't want that to be prepended then you can use
+
+url:'^/child' in the place of just url: '/child'
+Therefore when you go that view it will be /child unlike /parent/child

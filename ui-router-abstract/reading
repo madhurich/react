@@ -1,0 +1,11 @@
+> When abstract is true, for a state the corresponding view of that state
+will NOT be loaded or rendered when we go to that state's url.
+
+> the view of a abstract state can be seen only when it's child state is
+active, when it's child state is active automaticaly the parent state will be active
+
+	REFER https://github.com/angular-ui/ui-router/wiki/Nested-States-and-Nested-Views#abstract-states
+
+	>These abstract states are mainly used when we need
+			>shared data to all teh child states
+			>to prepend child state urls

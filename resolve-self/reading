@@ -1,0 +1,58 @@
+1. Nested States
+2. What do child states inherit from the parent state
+		--resolved dependencies
+		--custom data $stateChangeStart
+3. Abstract states
+4. multiple ways to go to a state
+	--using ui-sref
+	--$state.go() using onEnter and onExit
+	--directly going to the url
+
+	var app = angular.module('myApp', ['ui.router', 'ui.router.stateHelper']);
+
+	app.config(function(stateHelperProvider){
+
+		stateHelperProvider
+			.state({
+				name: 'home',
+				templateUrl: 'home.html',
+				children: [{
+					name: 'myHome',
+					template: '<h3>MY Home</h3>'
+				},{
+					name: 'myFriend',
+					template: '<h3>my friend</h3>'
+				}]
+			}, {
+				name: 'about',
+				templateUrl: 'about.html',
+				children: [{
+					name:'aboutMe',
+					template: '<h3>about Me</h3>'
+				}]
+			}, {keepOriginalNames: true})
+	});	
+
+	app.config(function(stateHelperProvider){
+		stateHelperProvider
+	});	
+
+	$stateProvider
+		.state('parent', {})
+		.state('child', {
+			parent: 'parent'
+		})
+
+		var home = {
+			name: 'home',
+			template: '<h1>home</h1>'
+		}
+		var myHome = {
+			name: 'myHome',
+			parent: home,
+			template: '<h3>my Home</h3>'
+		}
+
+		$stateProvider
+			.state(home)
+			.state(myHome);
